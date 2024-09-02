@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bridges of Königsberg Problem</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css" rel="stylesheet" type="text/css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #problem-image {
+            width: 50%;
+            margin-bottom: 20px;
+        }
+        #network {
+            border: 1px solid lightgray;
+            width: 500px;
+            height: 300px;
+        }
+        #controls {
+            margin-top: 20px;
+        }
+        .edge-label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Bridges of Königsberg</h1>
+<p>Try to solve the problem by crossing each bridge exactly once. Click on a bridge to cross it. Can you do it without repeating any bridge?</p>
+
+<img id="problem-image" src="image.png" alt="Bridges of Königsberg Problem" />
+
+<div id="network"></div>
+<div id="controls">
+    <p id="result"></p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>

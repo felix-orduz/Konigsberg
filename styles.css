@@ -1,0 +1,22 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+canvas {
+    border: 1px solid #000;
+    margin: 20px auto;
+    display: block;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#network {
+    border: 1px solid black;
+    background: white;
+    display: inline-block;
+}

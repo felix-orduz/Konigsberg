@@ -1,127 +1,218 @@
-const DEFAULT_NODE_COLOR = "#97C2FC";
-const SELECTED_NODE_COLOR = "#AAAA00";
-const HIGHLIGHT_NODE_COLOR = "#FFAA00";
-const DEFAULT_EDGE_COLOR = "#000000";
-const SELECTED_EDGE_COLOR = "#FFAABB";
-
 const colorEdge = {
-  color: DEFAULT_EDGE_COLOR,
-  highlight: DEFAULT_EDGE_COLOR,
-  hover: DEFAULT_EDGE_COLOR,
+  color: "#000000",
+  highlight: "#000000",
+  hover: "#000000",
   inherit: false,
   opacity: 1.0,
 };
-
 const colorEdgeSelected = {
-  color: SELECTED_EDGE_COLOR,
-  highlight: SELECTED_EDGE_COLOR,
-  hover: SELECTED_EDGE_COLOR,
+  color: "#FFAABB",
+  highlight: "#FFAABB",
+  hover: "##FFAABB",
   inherit: false,
   opacity: 1.0,
 };
 
-const nodes = new vis.DataSet([
-  { id: 1, label: "A", x: 0, y: 0, fixed: true, color: DEFAULT_NODE_COLOR },
-  { id: 2, label: "B", x: 0, y: 100, fixed: true, color: DEFAULT_NODE_COLOR },
-  { id: 3, label: "C", x: 0, y: -100, fixed: true, color: DEFAULT_NODE_COLOR },
-  { id: 4, label: "D", x: 100, y: 0, fixed: true, color: DEFAULT_NODE_COLOR },
+let nodes = new vis.DataSet([
+  { id: 1, label: "A", x: 0, y: 0, fixed: true, color: "#97C2FC" },
+  { id: 2, label: "B", x: 0, y: 100, fixed: true, color: "#97C2FC" },
+  { id: 3, label: "C", x: 0, y: -100, fixed: true, color: "#97C2FC" },
+  { id: 4, label: "D", x: 100, y: 0, fixed: true, color: "#97C2FC" },
 ]);
 
 let selectedEdges = [];
 let selectedNodes = [];
 let lastSelected = "";
 
-const createEdge = (id, from, to, label) => ({
-  id: id,
-  from: from,
-  to: to,
-  label: label,
-  color: colorEdge,
-  font: { size: 25, strokeWidth: 5 },
-  scaling: { min: 10, max: 10 },
-  width: 2,
-  selectionWidth: false,
-  labelHighlightBold: false,
-});
+createEdge = (id, from, to, label)=>{
+  return {
+    id: id,
+    from: from,
+    to: to,
+    label: label,
+    color: colorEdge,
+    font: { size: 25, strokeWidth: 5 },
+    scaling: { min: 10, max: 10 },
+    width: 2,
+    selectionWidth: false,
+    labelHighlightBold: false,
+  }
+};
 
-const edges = new vis.DataSet([
-  createEdge(1, 1, 2, "1"),
-  createEdge(2, 1, 3, "2"),
-  createEdge(3, 2, 3, "3"),
-  createEdge(4, 3, 4, "4"),
-  createEdge(5, 3, 4, "5"),
-  createEdge(6, 3, 4, "6"),
-  createEdge(7, 3, 4, "7"),
+let edges = new vis.DataSet([
+  {
+    id: 1,
+    from: 1,
+    to: 2,
+    label: "1",
+    color: colorEdge,
+    // chosen: { edge: choseEdge },
+    font: { size: 25, strokeWidth: 5 },
+    scaling: { min: 10, max: 10 },
+    width: 2,
+    selectionWidth: false,
+    labelHighlightBold: false,
+  },
+  {
+    id: 2,
+    from: 1,
+    to: 2,
+    label: "2",
+    color: colorEdge,
+    font: { size: 25, strokeWidth: 5 },
+    scaling: { min: 10, max: 10 },
+    width: 2,
+    selectionWidth: false,
+    labelHighlightBold: false,
+  },
+  {
+    id: 3,
+    from: 1,
+    to: 3,
+    label: "3",
+    color: colorEdge,
+    font: { size: 25, strokeWidth: 5 },
+    scaling: { min: 10, max: 10 },
+    width: 2,
+    selectionWidth: false,
+    labelHighlightBold: false,
+  },
+  {
+    id: 4,
+    from: 1,
+    to: 3,
+    label: "4",
+    color: colorEdge,
+    font: { size: 25, strokeWidth: 5 },
+    scaling: { min: 10, max: 10 },
+    width: 2,
+    selectionWidth: false,
+    labelHighlightBold: false,
+  },
+  {
+    id: 5,
+    from: 1,
+    to: 4,
+    label: "5",
+    color: colorEdge,
+    font: { size: 25, strokeWidth: 5 },
+    scaling: { min: 10, max: 10 },
+    width: 2,
+    selectionWidth: false,
+    labelHighlightBold: false,
+  },
+  {
+    id: 6,
+    from: 3,
+    to: 4,
+    label: "6",
+    color: colorEdge,
+    font: { size: 25, strokeWidth: 5 },
+    scaling: { min: 10, max: 10 },
+    width: 2,
+    selectionWidth: false,
+    labelHighlightBold: false,
+  },
+  {
+    id: 7,
+    from: 2,
+    to: 4,
+    label: "7",
+    color: colorEdge,
+    font: { size: 25, strokeWidth: 5 },
+    scaling: { min: 10, max: 10 },
+    width: 2,
+    selectionWidth: false,
+    labelHighlightBold: false,
+  },
 ]);
 
-const container = document.getElementById("network");
-const data = { nodes: nodes, edges: edges };
-const options = {
+let container = document.getElementById("network");
+let data = { nodes: nodes, edges: edges };
+let options = {
   autoResize: false,
   physics: true,
   interaction: {
-    dragNodes: false, // no permitir arrastrar nodos
-    zoomView: false, // no permitir zoom
-    dragView: false, // no permitir arrastrar
+    dragNodes: false, // do not allow dragging nodes
+    zoomView: false, // do not allow zooming
+    dragView: false, // do not allow dragging
   },
 };
+let network = new vis.Network(container, data, options);
 
-const network = new vis.Network(container, data, options);
+let steps = 0;
+let crossedEdges = [];
+let lastSelectedNode = null;
+let lastSelectedEdge = null;
 
-network.on("selectNode", ({ nodes: selectedNodesList, edges: connectedEdges }) => {
+network.on("selectNode", (opts) => {
+  console.log("++++++Node Selected========");
+  edgesForNode = opts.edges;
   network.setSelection({ nodes: [], edges: [] });
 
-  if (lastSelected === "N") {
-    toastr.warning("Debes Seleccionar Primero una Arista");
+  console.log("Selected opts:", opts);
+
+  if (lastSelected == "N") {
+    alert("Debes Seleccionar Primero una Arista");
     return;
   }
 
-  const currentNode = selectedNodesList[0];
+  currentNode = opts.nodes[0];
 
-  if (lastSelected === "E" && !connectedEdges.includes(selectedEdges[selectedEdges.length - 1])) {
-    toastr.warning("Debes seleccionar un Vertice (nodo) que conecte a la última arista seleccionada");
+  currentNodeObject = nodes.get(currentNode);
+  console.log("currentNodeObject:", currentNodeObject);
+  lastSelectedEdge = selectedEdges[selectedEdges.length - 1];
+
+  if (lastSelectedEdge && !edgesForNode.includes(lastSelectedEdge)) {
+    alert("Debes seleccionar un Vertice (nodo) que conecte a la última arista seleccionada");
     return;
   }
-
   selectedNodes.push(currentNode);
   lastSelected = "N";
-  colorSelectedNodes();
-  nodes.update({ id: currentNode, color: SELECTED_NODE_COLOR });
+  colorOtherNodes();
+  nodes.update({id: currentNode, color: "#AAAA00"});
+
 });
+function colorOtherNodes() {
+  for(let node of selectedNodes) {
+    nodes.update({id: node, color: "#FFAA00"});
+  }
+}
 
-const colorSelectedNodes = () => {
-  selectedNodes.forEach(node => {
-    nodes.update({ id: node, color: HIGHLIGHT_NODE_COLOR });
-  });
-};
+network.on("selectEdge", (opts) => {
+  if (opts.edges.length == 0) return;
 
-network.on("selectEdge", ({ edges: selectedEdgesList }) => {
-  if (selectedEdgesList.length === 0) return;
-
+  console.log("lastSelected:", lastSelected)
+  console.log("++++++Edge Selected========");
   network.setSelection({ nodes: [], edges: [] });
 
-  if (lastSelected === "E" || lastSelected === "") {
-    toastr.warning("Debes Seleccionar Primero un Vertice (nodo)");
+  console.log("Selected opts:", opts);
+
+  if (lastSelected == "E" || lastSelected == "") {
+    alert("Debes Seleccionar Primero un Vertice (nodo)");
     return;
   }
 
-  const currentEdge = selectedEdgesList[0];
+  currentEdge = opts.edges[0];
 
-  if (selectedEdges.includes(currentEdge)) {
-    toastr.warning("Ya has seleccionado este Vertice (nodo)");
+  if(selectedEdges.includes(currentEdge)) {
+    alert("Ya has seleccionado este Vertice (nodo)");
     return;
   }
 
-  const currentEdgeObject = edges.get(currentEdge);
-  const lastSelectedNode = selectedNodes[selectedNodes.length - 1];
+  currentEdgeObject = edges.get(currentEdge);
+  console.log("currentEdgeObject:", currentEdgeObject);
+  lastSelectedNode = selectedNodes[selectedNodes.length - 1];
 
-  if (currentEdgeObject.from !== lastSelectedNode && currentEdgeObject.to !== lastSelectedNode) {
-    toastr.warning("Debes seleccionar una arista que conecte al ultimo nodo seleccionado");
+  if (currentEdgeObject.from != lastSelectedNode && currentEdgeObject.to != lastSelectedNode) {
+    alert("Debes seleccionar una arista que conecte al ultimo nodo seleccionado");
     return;
   }
 
   selectedEdges.push(currentEdge);
   lastSelected = "E";
 
-  edges.update({ id: currentEdge, color: colorEdgeSelected });
+  edges.update({id: currentEdge, color: colorEdgeSelected});
+
 });
+

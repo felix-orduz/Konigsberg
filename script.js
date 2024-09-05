@@ -125,7 +125,7 @@ network.on("selectEdge", ({ edges: selectedEdgesList }) => {
   const currentEdge = selectedEdgesList[0];
 
   if (selectedEdges.includes(currentEdge)) {
-    toastr.warning("You have already selected this node");
+    toastr.warning("You have already selected this edge");
     return;
   }
 

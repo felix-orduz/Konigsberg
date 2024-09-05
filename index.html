@@ -4,15 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bridges of Königsberg Problem</title>
+
+    <!-- Link to Font Awesome -->
     <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
       rel="stylesheet"
-      type="text/css"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
-    />
+
     <style>
       body {
         margin: 0;
@@ -28,6 +26,30 @@
         text-align: center;
       }
 
+      /* Estilo del footer */
+      #social-icons {
+        margin-top: 20px;
+        position: fixed;
+        bottom: 10px;
+        display: flex;
+        gap: 15px;
+        padding: 10px;
+        background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semitransparente */
+        border-radius: 10px;
+      }
+
+      #social-icons a {
+        text-decoration: none;
+        color: #333;
+        font-size: 24px;
+        transition: color 0.3s ease;
+      }
+
+      #social-icons a:hover {
+        color: #2980b9; /* Cambia el color al pasar el ratón */
+      }
+
+      /* Otros estilos */
       h1 {
         font-size: 32px;
         color: #2c3e50;
@@ -60,7 +82,6 @@
         max-width: 600px;
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
         flex-direction: column;
-        position: relative; /* Posicionar relativo para los toasts */
       }
 
       #network {
@@ -70,26 +91,6 @@
         border: 2px solid #2980b9;
         background-color: #ecf0f1;
         border-radius: 28px;
-      }
-
-      /* Posicionar los toasts dentro del #game-container */
-      .toast {
-        position: absolute;
-        top: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-      }
-
-      /* Responsive design */
-      @media (max-width: 600px) {
-        #game-container {
-          flex-direction: column;
-          padding: 10px;
-        }
-
-        #network {
-          height: 300px;
-        }
       }
     </style>
   </head>
@@ -104,27 +105,26 @@
       <div id="network"></div>
     </div>
 
+    <!-- Social Media Icons -->
+    <div id="social-icons">
+      <a href="https://www.linkedin.com/in/felixorduz/" target="_blank" aria-label="LinkedIn">
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a href="https://x.com/felix_orduz" target="_blank" aria-label="Twitter">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="https://www.instagram.com/felix-orduz" target="_blank" aria-label="Instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://github.com/felix.orduz/" target="_blank" aria-label="GitHub">
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+
     <!-- Incluir jQuery antes de Toastr -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
-    <script>
-      $(document).ready(function () {
-        toastr.options = {
-          "closeButton": true,
-          "progressBar": true,
-          "positionClass": "toast-top-center", // Centra el toast en el contenedor
-          "showDuration": "300",
-          "hideDuration": "1000",
-          "timeOut": "5000",
-          "extendedTimeOut": "1000",
-          "showEasing": "swing",
-          "hideEasing": "linear",
-          "showMethod": "fadeIn",
-          "hideMethod": "fadeOut"
-        };
-      });
-    </script>
     <script src="script.js"></script>
   </body>
 </html>

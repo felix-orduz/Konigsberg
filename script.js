@@ -2,7 +2,8 @@ $(document).ready(function () {
   toastr.options = {
       "closeButton": true,
       "progressBar": true,
-      "positionClass": "toast-top-center", // Centra el toast en la parte superior
+      "positionClass": "tostr_absolute toastr_top_center",
+      "target": "#game-container",
       "showDuration": "300",
       "hideDuration": "1000",
       "timeOut": "5000",
@@ -12,7 +13,6 @@ $(document).ready(function () {
       "showMethod": "fadeIn",
       "hideMethod": "fadeOut"
   };
-
 });
 
 const DEFAULT_NODE_COLOR = "#97C2FC";
@@ -77,9 +77,9 @@ const options = {
   autoResize: false,
   physics: true,
   interaction: {
-    dragNodes: false, // no permitir arrastrar nodos
-    zoomView: false, // no permitir zoom
-    dragView: false, // no permitir arrastrar
+    dragNodes: false, // prevent dragging nodes
+    zoomView: false,  // prevent zooming
+    dragView: false,  // prevent dragging the view
   },
 };
 
@@ -89,14 +89,14 @@ network.on("selectNode", ({ nodes: selectedNodesList, edges: connectedEdges }) =
   network.setSelection({ nodes: [], edges: [] });
 
   if (lastSelected === "N") {
-    toastr.info("Debes Seleccionar Primero una Arista");
+    toastr.warning("You must select an edge first");
     return;
   }
 
   const currentNode = selectedNodesList[0];
 
   if (lastSelected === "E" && !connectedEdges.includes(selectedEdges[selectedEdges.length - 1])) {
-    toastr.info("Debes seleccionar un Vertice (nodo) que conecte a la última arista seleccionada");
+    toastr.warning("You must select a node connected to the last selected edge");
     return;
   }
 
@@ -118,14 +118,14 @@ network.on("selectEdge", ({ edges: selectedEdgesList }) => {
   network.setSelection({ nodes: [], edges: [] });
 
   if (lastSelected === "E" || lastSelected === "") {
-    toastr.info("Debes Seleccionar Primero un Vertice (nodo)");
+    toastr.warning("You must select a node first");
     return;
   }
 
   const currentEdge = selectedEdgesList[0];
 
   if (selectedEdges.includes(currentEdge)) {
-    toastr.info("Ya has seleccionado este Vertice (nodo)");
+    toastr.warning("You have already selected this node");
     return;
   }
 
@@ -133,7 +133,7 @@ network.on("selectEdge", ({ edges: selectedEdgesList }) => {
   const lastSelectedNode = selectedNodes[selectedNodes.length - 1];
 
   if (currentEdgeObject.from !== lastSelectedNode && currentEdgeObject.to !== lastSelectedNode) {
-    toastr.info("Debes seleccionar una arista que conecte al ultimo nodo seleccionado");
+    toastr.warning("You must select an edge connected to the last selected node");
     return;
   }
 

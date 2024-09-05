@@ -1,53 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bridges of Königsberg Problem</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+    />
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background: url("./background.png") repeat-x top;
+        background-size: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 32px;
+        color: #2c3e50;
+        margin-bottom: 10px;
+        background-color: rgba(255, 255, 255, 0.85);
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+
+      p {
+        font-size: 18px;
+        color: #34495e;
+        background-color: rgba(255, 255, 255, 0.85);
+        padding: 10px;
+        border-radius: 10px;
+        max-width: 600px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        margin-bottom: 20px;
+      }
+
+      #game-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 15px;
+        padding: 20px;
+        width: 90%;
+        max-width: 600px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        flex-direction: column;
+        position: relative; /* Posicionar relativo para los toasts */
+      }
+
+      #network {
+        width: 90%;
+        height: 384px;
+        max-width: 512px;
+        border: 2px solid #2980b9;
+        background-color: #ecf0f1;
+        border-radius: 28px;
+      }
+
+      /* Posicionar los toasts dentro del #game-container */
+      .toast {
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      /* Responsive design */
+      @media (max-width: 600px) {
+        #game-container {
+          flex-direction: column;
+          padding: 10px;
         }
-        #problem-image {
-            width: 50%;
-            margin-bottom: 20px;
-        }
+
         #network {
-            border: 1px solid lightgray;
-            width: 500px;
-            height: 300px;
+          height: 300px;
         }
-        #controls {
-            margin-top: 20px;
-        }
-        .edge-label {
-            font-weight: bold;
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
+    <h1>Bridges of Königsberg Problem</h1>
+    <p>
+      Try to solve the problem by crossing each bridge exactly once. Click on a
+      bridge to cross it. Can you do it without repeating any bridge?
+    </p>
 
-<h1>Bridges of Königsberg</h1>
-<p>Try to solve the problem by crossing each bridge exactly once. Click on a bridge to cross it. Can you do it without repeating any bridge?</p>
+    <div id="game-container">
+      <div id="network"></div>
+    </div>
 
-<img id="problem-image" src="image.png" alt="Bridges of Königsberg Problem" />
-
-<div id="network"></div>
-<div id="controls">
-    <p id="result"></p>
-</div>
-
-<!-- Incluir jQuery antes de Toastr -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
-<script src="script.js"></script>
-
-</body>
+    <!-- Incluir jQuery antes de Toastr -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        toastr.options = {
+          "closeButton": true,
+          "progressBar": true,
+          "positionClass": "toast-top-center", // Centra el toast en el contenedor
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "5000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        };
+      });
+    </script>
+    <script src="script.js"></script>
+  </body>
 </html>

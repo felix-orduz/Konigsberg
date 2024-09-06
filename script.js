@@ -6,7 +6,7 @@ $(document).ready(function () {
       "target": "#game-container",
       "showDuration": "300",
       "hideDuration": "1000",
-      "timeOut": "5000",
+      "timeOut": "3000",
       "extendedTimeOut": "1000",
       "showEasing": "swing",
       "hideEasing": "linear",
@@ -47,6 +47,7 @@ const nodes = new vis.DataSet([
 let selectedEdges = [];
 let selectedNodes = [];
 let lastSelected = "";
+let lastNodeSelected = "";
 
 const createEdge = (id, from, to, label) => ({
   id: id,
@@ -94,6 +95,13 @@ network.on("selectNode", ({ nodes: selectedNodesList, edges: connectedEdges }) =
   }
 
   const currentNode = selectedNodesList[0];
+
+  if (lastNodeSelected === currentNode) {
+    toastr.warning("You must select other Node");
+    return;
+  }
+
+  lastNodeSelected = currentNode;
 
   if (lastSelected === "E" && !connectedEdges.includes(selectedEdges[selectedEdges.length - 1])) {
     toastr.warning("You must select a node connected to the last selected edge");
